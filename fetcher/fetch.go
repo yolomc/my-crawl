@@ -3,10 +3,8 @@ package fetcher
 import (
 	"bufio"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
-	"regexp"
 	"strconv"
 
 	"golang.org/x/net/html/charset"
@@ -47,12 +45,4 @@ func DeterminEncoding(r *bufio.Reader) encoding.Encoding {
 
 	e, _, _ := charset.DetermineEncoding(byte, "")
 	return e
-}
-
-func ParseContent(content []byte) {
-	reg := regexp.MustCompile(`<a href="([^"]+)" class="tag">[^<]+</a> `)
-	matches := reg.FindAllSubmatch(content, -1)
-	for _, m := range matches {
-		fmt.Println("https://book.douban.com" + string(m[1]))
-	}
 }
